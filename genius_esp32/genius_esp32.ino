@@ -15,8 +15,8 @@ const int ledVermelho = 18; // gpio do led vermelho
 
 const int btnAmarelo = 19;  // gpio do botão do led amarelo
 const int btnAzul = 21;     // gpio do botão do led azul
-const int btnVerde = 22;    // gpio do botão do led verde
-const int btnVermelho = 23; // gpio do botão do led vermelho
+const int btnVerde = 26;    // gpio do botão do led verde; esp32: 22 eps32s2: 26
+const int btnVermelho = 33; // gpio do botão do led vermelho; esp32: 23 esp32s2: 33
 
 void alter_all_leds(int estado) // função para deixar todos os leds em um mesmo estado (ligados ou apagados)
 {
@@ -143,10 +143,10 @@ void loop()
                 digitalWrite(ledAmarelo, 0); // apago o led
                 delay(500);                  // espero mais meio segundo
             }
-            else if (rbaz) // se o botao do azul foi apertado
+            else if (rbaz) // se o botao do amarelo foi apertado
             {
-                digitalWrite(ledAzul, 1);    // acendo o led azul
-                ledcWriteTone(PWM1_Ch, 349); // toco o tom da cor azul
+                digitalWrite(ledAzul, 1);    // acendo o led amarelo
+                ledcWriteTone(PWM1_Ch, 349); // toco o tom da cor amarela
                 if (luzes[aux] == 1)         // verifico se o jogador acertou a cor
                 {
                     aux++; // acrescento mais um no indice de acerto
@@ -165,10 +165,10 @@ void loop()
                 digitalWrite(ledAzul, 0); // apago o led
                 delay(500);               // espero mais meio segundo
             }
-            else if (rbvd) // se o botao do verde foi apertado
+            else if (rbvd) // se o botao do amarelo foi apertado
             {
-                digitalWrite(ledVerde, 1);   // acendo o led verde
-                ledcWriteTone(PWM1_Ch, 262); // toco o tom da cor verde
+                digitalWrite(ledVerde, 1);   // acendo o led amarelo
+                ledcWriteTone(PWM1_Ch, 262); // toco o tom da cor amarela
                 if (luzes[aux] == 1)         // verifico se o jogador acertou a cor
                 {
                     aux++; // acrescento mais um no indice de acerto
@@ -187,10 +187,10 @@ void loop()
                 digitalWrite(ledAmarelo, 0); // apago o led
                 delay(500);                  // espero mais meio segundo
             }
-            else if (rbvm) // se o botao do vermelho foi apertado
+            else if (rbvm) // se o botao do amarelo foi apertado
             {
-                digitalWrite(ledVermelho, 1); // acendo o led vermelho
-                ledcWriteTone(PWM1_Ch, 294);  // toco o tom da cor vermelho
+                digitalWrite(ledVermelho, 1); // acendo o led amarelo
+                ledcWriteTone(PWM1_Ch, 294);  // toco o tom da cor amarela
                 if (luzes[aux] == 1)          // verifico se o jogador acertou a cor
                 {
                     aux++; // acrescento mais um no indice de acerto
@@ -209,6 +209,8 @@ void loop()
                 digitalWrite(ledVermelho, 0); // apago o led
                 delay(500);                   // espero mais meio segundo
             }
+
+            // Fazer para os outros leds
 
             if (aux >= index) // se ele acertou toda sequencia o while não tera parado e o aux sera igual ao index que o tamanho da sequencia atual
             {
