@@ -58,30 +58,31 @@ void loop()
 
     alter_all_leds(0); // apago todos os leds
 
-    int pontos = 0;
-    bool acertou = 1;
+    int pontos = 0;   // pontuação
+    bool acertou = 1; // variavel para terminar o loop quando o jogador errar
 
-    int index = 0;
-    int luzes[200]; // qual luz vai acender de acordo com cada index
+    int index = 0;  // index para controle do tamanho da sequencia, a cada rodada ele cresce e a sequencia aumenta
+    int luzes[201]; // qual luz vai acender de acordo com cada index
 
-    while (acertou)
+    while (acertou) // enquanto o jogador não errar ou zerar a sequencia
     {
-        Serial.print("Pontuação: ");
+        Serial.print("Pontuação: "); // mostra a pontuação a cada rodada
         Serial.println(pontos);
 
-        luzes[index] = random(1, 5); // escolho um led aleatorio para acender
+        luzes[index] = random(1, 5); // escolho um led aleatorio para acender no novo indice da sequencia
 
-        index++;
+        index++; // incrementa o index
 
-        for (int i = 0; i < index; i++)
+        for (int i = 0; i < index; i++) // acendo todos os leds de acordo com a sequencia
         {
             if (luzes[i] == 1) // 1: amarelo, 2: azul, 3: verde. 4: vermelho
             {
-                digitalWrite(ledAmarelo, 1);
+                digitalWrite(ledAmarelo, 1); // acendo o led
+                // toco um tom de acordo com a cor
                 ledcWriteTone(PWM1_Ch, 330); // arrumar essa função depois, se nao me engano nativamente ela só dura 1 ms, o ideal e 500
-                delay(500);
-                digitalWrite(ledAmarelo, 0);
-                delay(200);
+                delay(500);                  // espero meio segundo
+                digitalWrite(ledAmarelo, 0); // apago o led
+                delay(200);                  // espero 200 ms
             }
             else if (luzes[i] == 2)
             {
@@ -115,44 +116,44 @@ void loop()
         while (terminou_sequencia && acertou) // verifica se ele ainda não terminou a sequencia e se ainda não errou
         {
             // rbxx = resultado botão <sigla da cor>
-            int rbam = digitalRead(btnAmarelo);
+            int rbam = digitalRead(btnAmarelo); // verifico todos os botoes se algum foi apertado
             int rbaz = digitalRead(btnAzul);
             int rbvd = digitalRead(btnVerde);
             int rbvm = digitalRead(btnVermelho);
 
-            if (rbam)
+            if (rbam) // se o botao do amarelo foi apertado
             {
-                digitalWrite(ledAmarelo, 1);
-                ledcWriteTone(PWM1_Ch, 330);
-                if (luzes[aux] == 1)
+                digitalWrite(ledAmarelo, 1); // acendo o led amarelo
+                ledcWriteTone(PWM1_Ch, 330); // toco o tom da cor amarela
+                if (luzes[aux] == 1)         // verifico se o jogador acertou a cor
                 {
-                    aux++;
+                    aux++; // acrescento mais um no indice de acerto
                 }
-                else
+                else // caso ele tenha errado
                 {
-                    acertou = 0;
+                    acertou = 0; // marco que ele errou
                 }
 
-                while (rbam)
+                while (rbam) // enquanto ele continaur apertando o botão
                 {
                     rbam = digitalRead(btnAmarelo);
                 }
 
-                delay(500);
-                digitalWrite(ledAmarelo, 0);
-                delay(500);
+                delay(500);                  // espero meio segundo
+                digitalWrite(ledAmarelo, 0); // apago o led
+                delay(500);                  // espero mais meio segundo
             }
 
             // Fazer para os outros leds
 
-            if (aux >= index)
+            if (aux >= index) // se ele acertou toda sequencia o while não tera parado e o aux sera igual ao index que o tamanho da sequencia atual
             {
-                terminou_sequencia = 1;
-                pontos++;
+                terminou_sequencia = 1; // marco que ele completou a sequencia
+                pontos++;               // adicono mais um ponto
             }
         }
 
-        if (index == 200)
+        if (index == 200) // se o index for igual a 200 ele zerou a sequencia e o jogo
         {
             break;
         }
@@ -160,11 +161,11 @@ void loop()
 
     ledcWriteTone(PWM1_Ch, 415); // O buzzer toca numa frequência diferente das luzes, ajustar essa função para 3000 ms depois
 
-    alter_all_leds(0);
+    alter_all_leds(0); // apago todos os leds
 
-    if (acertou)
+    if (acertou) // verifica se ele zerou ou errou
     {
-        Serial.println("Parabens, você completou o jogo!!! :D");
+        Serial.println("Parabens, você completou o jogo!!! :D"); // Mensagem fofa caso o jogador tenha zerado o jogo
 
         for (int i = 0; i < 3; i++) // Pisca 3 vezes o led verde se o jogador zerou o jogo, easter egg kkk
         {
