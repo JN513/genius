@@ -143,8 +143,72 @@ void loop()
                 digitalWrite(ledAmarelo, 0); // apago o led
                 delay(500);                  // espero mais meio segundo
             }
+            else if (rbaz) // se o botao do azul foi apertado
+            {
+                digitalWrite(ledAzul, 1);    // acendo o led azul
+                ledcWriteTone(PWM1_Ch, 349); // toco o tom da cor azul
+                if (luzes[aux] == 1)         // verifico se o jogador acertou a cor
+                {
+                    aux++; // acrescento mais um no indice de acerto
+                }
+                else // caso ele tenha errado
+                {
+                    acertou = 0; // marco que ele errou
+                }
 
-            // Fazer para os outros leds
+                while (rbaz) // enquanto ele continaur apertando o botão
+                {
+                    rbaz = digitalRead(btnAzul);
+                }
+
+                delay(500);               // espero meio segundo
+                digitalWrite(ledAzul, 0); // apago o led
+                delay(500);               // espero mais meio segundo
+            }
+            else if (rbvd) // se o botao do verde foi apertado
+            {
+                digitalWrite(ledVerde, 1);   // acendo o led verde
+                ledcWriteTone(PWM1_Ch, 262); // toco o tom da cor verde
+                if (luzes[aux] == 1)         // verifico se o jogador acertou a cor
+                {
+                    aux++; // acrescento mais um no indice de acerto
+                }
+                else // caso ele tenha errado
+                {
+                    acertou = 0; // marco que ele errou
+                }
+
+                while (rbvd) // enquanto ele continaur apertando o botão
+                {
+                    rbvd = digitalRead(btnVerde);
+                }
+
+                delay(500);                  // espero meio segundo
+                digitalWrite(ledAmarelo, 0); // apago o led
+                delay(500);                  // espero mais meio segundo
+            }
+            else if (rbvm) // se o botao do vermelho foi apertado
+            {
+                digitalWrite(ledVermelho, 1); // acendo o led vermelho
+                ledcWriteTone(PWM1_Ch, 294);  // toco o tom da cor vermelho
+                if (luzes[aux] == 1)          // verifico se o jogador acertou a cor
+                {
+                    aux++; // acrescento mais um no indice de acerto
+                }
+                else // caso ele tenha errado
+                {
+                    acertou = 0; // marco que ele errou
+                }
+
+                while (rbvm) // enquanto ele continaur apertando o botão
+                {
+                    rbvm = digitalRead(btnVermelho);
+                }
+
+                delay(500);                   // espero meio segundo
+                digitalWrite(ledVermelho, 0); // apago o led
+                delay(500);                   // espero mais meio segundo
+            }
 
             if (aux >= index) // se ele acertou toda sequencia o while não tera parado e o aux sera igual ao index que o tamanho da sequencia atual
             {
