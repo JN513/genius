@@ -13,10 +13,20 @@ const int ledAzul = 16;     // gpio do led azul
 const int ledVerde = 17;    // gpio do led verde
 const int ledVermelho = 18; // gpio do led vermelho
 
-const int btnAmarelo = 19;  // gpio do botão do led amarelo
-const int btnAzul = 21;     // gpio do botão do led azul
+const int btnAmarelo = 19; // gpio do botão do led amarelo
+const int btnAzul = 21;    // gpio do botão do led azul
+
+#ifdef CONFIG_IDF_TARGET_ESP32S2
+
 const int btnVerde = 26;    // gpio do botão do led verde; esp32: 22 eps32s2: 26
 const int btnVermelho = 33; // gpio do botão do led vermelho; esp32: 23 esp32s2: 33
+
+#elif CONFIG_IDF_TARGET_ESP32
+
+const int btnVerde = 22;    // gpio do botão do led verde; esp32: 22 eps32s2: 26
+const int btnVermelho = 23; // gpio do botão do led vermelho; esp32: 23 esp32s2: 33
+
+#endif
 
 void alter_all_leds(int estado) // função para deixar todos os leds em um mesmo estado (ligados ou apagados)
 {
