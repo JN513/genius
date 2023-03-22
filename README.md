@@ -23,5 +23,27 @@ Para construir o dispositivo do jogo precisaremos de:
 - 1 led azul
 - 1 led verde
 - 1 led amarelo
-- jumpers
+-  jumpers
 - protoboard
+
+## Como funciona o dispositivo do Genius
+
+O dispositivo do Genius 
+
+## Algoritmo
+
+## Circuito
+
+### Esquemático do Circuito:
+
+![Imagem do esquematico ](https://raw.githubusercontent.com/JN513/genius/main/esquematico/genius_esp32_Esquem%C3%A1tico.jpg)
+
+### Visão da protoboard do circuito
+
+![Imagem da protoboard ](https://raw.githubusercontent.com/JN513/genius/main/protoboard/genius_esp32_bb.jpg)
+
+
+## Problemas e sugestões
+
+Fique a vontade para dar sua sujestão ou relatar algum problema na sessão Issues do Git-Hub, caso queira contribuir fique a vontade para criar uma nova branch e realizar um Pull-Request.
+
