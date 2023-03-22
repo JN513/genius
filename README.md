@@ -5,6 +5,19 @@
 Quer testar se sua memória está afiada? Se sim, que tal jogar Genius?
 Uma sugestão ainda melhor, bora fazer um Genius.
 
+## Tópicos
+
+- [Jogo Genius](#jogo-genius)
+  - [Tópicos](#tópicos)
+  - [O que é o Genius](#o-que-é-o-genius)
+  - [O que vamos precisar](#o-que-vamos-precisar)
+  - [Como funciona o dispositivo do Genius](#como-funciona-o-dispositivo-do-genius)
+  - [Algoritmo](#algoritmo)
+  - [Circuito](#circuito)
+    - [Esquemático do Circuito:](#esquemático-do-circuito)
+    - [Visão da protoboard do circuito](#visão-da-protoboard-do-circuito)
+  - [Problemas e sugestões](#problemas-e-sugestões)
+
 ## O que é o Genius
 
 Para quem não sabe ( até alguns dias antes de escrever esse artigo eu também não sabia o que era rs) Genius é um jogo de memória, onde um dispositivo acende um sequência aleatória de luzes e o jogador precisa após o dispositivo reproduzir a sequência, apertar sobre a sequência de luzes, na medida que o jogador acerta uma sequencia ele ganha um ponto e o jogo gera outra sequência maior, esse processo se repete até o jogador errar uma sequência ou zerar o jogo.
@@ -79,6 +92,7 @@ A função *alter_all_leds* É uma função personalizada que terá seu funciona
 ```
 
 … em breve continua …
+
 ## Circuito
 
 ### Esquemático do Circuito:
