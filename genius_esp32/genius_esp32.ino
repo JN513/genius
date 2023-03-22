@@ -38,14 +38,19 @@ void alter_all_leds(int estado) // função para deixar todos os leds em um mesm
 
 void setup()
 {
-    Serial.begin(115200); // Configuro a porta serial para trabalhar emum baudrate de 115200 bits
-
     pinMode(ledAmarelo, OUTPUT); // configuro a gpio do led amarelo como saida, faço isso para todos os outros leds
     pinMode(ledAzul, OUTPUT);
     pinMode(ledVerde, OUTPUT);
     pinMode(ledVermelho, OUTPUT);
 
+    pinMode(btnAmarelo, INPUT); // configuro a gpio do botão do led amarelo como entrada, faço isso para todos os outros botões
+    pinMode(btnAzul, INPUT);
+    pinMode(btnVerde, INPUT);
+    pinMode(btnVermelho, INPUT);
+
     alter_all_leds(0); // apago todos os leds
+
+    Serial.begin(115200); // Configuro a porta serial para trabalhar em um baud rate de 115200 bits
 
     ledcAttachPin(buzzer, PWM1_Ch);  // Relaciono o canal pwm 0 ao pino do buzzer
     ledcSetup(PWM1_Ch, 0, PWM1_Res); // configuro o canal 0 do pwm
