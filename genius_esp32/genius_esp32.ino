@@ -97,7 +97,7 @@ void loop()
         {
             if (luzes[i] == 1) // 1: amarelo, 2: azul, 3: verde. 4: vermelho
             {
-                Serial.println("Amarelo");
+                // Serial.println("Amarelo");
                 digitalWrite(ledAmarelo, 1); // acendo o led
                 // toco um tom de acordo com a cor
                 ledcWriteTone(PWM1_Ch, 330); // arrumar essa função depois, se nao me engano nativamente ela só dura 1 ms, o ideal e 500
@@ -109,7 +109,7 @@ void loop()
             }
             else if (luzes[i] == 2)
             {
-                Serial.println("Azul");
+                // Serial.println("Azul");
                 digitalWrite(ledAzul, 1);
                 ledcWriteTone(PWM1_Ch, 349);
 
@@ -120,7 +120,7 @@ void loop()
             }
             else if (luzes[i] == 3)
             {
-                Serial.println("Verde");
+                // Serial.println("Verde");
                 digitalWrite(ledVerde, 1);
                 ledcWriteTone(PWM1_Ch, 262);
 
@@ -131,7 +131,7 @@ void loop()
             }
             else if (luzes[i] == 4)
             {
-                Serial.println("Vermelho");
+                // Serial.println("Vermelho");
                 digitalWrite(ledVermelho, 1);
                 ledcWriteTone(PWM1_Ch, 294);
 
