@@ -205,6 +205,8 @@ void loop()
             {
                 acertou = 0;
                 Serial.println("Tempo expirado");
+                ledcWriteTone(PWM1_Ch, 390);
+
                 display.clearDisplay();
                 display.setTextSize(1.5);
                 display.setTextColor(WHITE);
@@ -213,6 +215,7 @@ void loop()
                 display.println("Tempo expirado. :(");
                 display.display();
                 delay(2000);
+                ledcWrite(PWM1_Ch, 0);
             }
             // rbxx = resultado botão <sigla da cor>
             int rbam = digitalRead(btnAmarelo); // verifico todos os botoes se algum foi apertado
