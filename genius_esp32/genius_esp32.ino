@@ -5,6 +5,7 @@
 #define PWM1_Ch 1      // escolho o canal pwm 0
 #define PWM1_Res 10    // seto a resolução do canal pwm como 10 bits 2^10 = 1024 no caso um intervalo de 0 a 1023
 #define PWM1_Freq 1000 // defino a frequencia da saida pwm como 1000hz
+#define time_note 1000
 
 const int buzzer = 14; // gpio do buzzer
 
@@ -49,15 +50,13 @@ void setup()
     pinMode(btnVerde, INPUT);
     pinMode(btnVermelho, INPUT);
 
-    // pinMode(buzzer, OUTPUT);
-
     alter_all_leds(0); // apago todos os leds
 
     Serial.begin(115200); // Configuro a porta serial para trabalhar em um baud rate de 115200 bits
 
-    // ledcAttachPin(buzzer, PWM1_Ch); // Relaciono o canal pwm 0 ao pino do buzzer
-    //  ledcSetup(PWM1_Ch, 1000, PWM1_Res); // configuro o canal 0 do pwm.
-    randomSeed(analogRead(0));
+    ledcAttachPin(buzzer, PWM1_Ch);     // Relaciono o canal pwm 0 ao pino do buzzer
+    ledcSetup(PWM1_Ch, 1000, PWM1_Res); // configuro o canal 0 do pwm.
+    randomSeed(analogRead(0));          // Garante que os numeros serão aleatorios quando o programa reiniciar
 }
 
 void loop()
@@ -101,41 +100,44 @@ void loop()
                 Serial.println("Amarelo");
                 digitalWrite(ledAmarelo, 1); // acendo o led
                 // toco um tom de acordo com a cor
-                // ledcWriteTone(PWM1_Ch, 330); // arrumar essa função depois, se nao me engano nativamente ela só dura 1 ms, o ideal e 500
+                ledcWriteTone(PWM1_Ch, 330); // arrumar essa função depois, se nao me engano nativamente ela só dura 1 ms, o ideal e 500
 
-                // ledcWriteNote(PWM1_Ch, NOTE_D, 500);
-                delay(1000);                 // espero meio segundo
+                delay(time_note);            // espero meio segundo
                 digitalWrite(ledAmarelo, 0); // apago o led
-                delay(200);                  // espero 200 ms
+                ledcWrite(PWM1_Ch, 0);
+                delay(200); // espero 200 ms
             }
             else if (luzes[i] == 2)
             {
                 Serial.println("Azul");
                 digitalWrite(ledAzul, 1);
-                // ledcWriteTone(PWM1_Ch, 349);
-                // ledcWriteNote(PWM1_Ch, NOTE_D, 500);
-                delay(1000);
+                ledcWriteTone(PWM1_Ch, 349);
+
+                delay(time_note);
                 digitalWrite(ledAzul, 0);
+                ledcWrite(PWM1_Ch, 0);
                 delay(200);
             }
             else if (luzes[i] == 3)
             {
                 Serial.println("Verde");
                 digitalWrite(ledVerde, 1);
-                // ledcWriteTone(PWM1_Ch, 262);
-                // ledcWriteNote(PWM1_Ch, NOTE_D, 500);
-                delay(1000);
+                ledcWriteTone(PWM1_Ch, 262);
+
+                delay(time_note);
                 digitalWrite(ledVerde, 0);
+                ledcWrite(PWM1_Ch, 0);
                 delay(200);
             }
             else if (luzes[i] == 4)
             {
                 Serial.println("Vermelho");
                 digitalWrite(ledVermelho, 1);
-                // ledcWriteTone(PWM1_Ch, 294);
-                // ledcWriteNote(PWM1_Ch, NOTE_D, 500);
-                delay(1000);
+                ledcWriteTone(PWM1_Ch, 294);
+
+                delay(time_note);
                 digitalWrite(ledVermelho, 0);
+                ledcWrite(PWM1_Ch, 0);
                 delay(200);
             }
         }
@@ -151,13 +153,11 @@ void loop()
             int rbvd = digitalRead(btnVerde);
             int rbvm = digitalRead(btnVermelho);
 
-            // Serial.printf("amarelo: %d, azul: %d, vermelho: %d, verde %d\n", rbam, rbaz, rbvd, rbvm);
-
             if (rbam) // se o botao do amarelo foi apertado
             {
                 digitalWrite(ledAmarelo, 1); // acendo o led amarelo
-                // ledcWriteTone(PWM1_Ch, 330); // toco o tom da cor amarela
-                if (luzes[aux] == 1) // verifico se o jogador acertou a cor
+                ledcWriteTone(PWM1_Ch, 330); // toco o tom da cor amarela
+                if (luzes[aux] == 1)         // verifico se o jogador acertou a cor
                 {
                     aux++; // acrescento mais um no indice de acerto
                 }
@@ -171,15 +171,16 @@ void loop()
                     rbam = digitalRead(btnAmarelo);
                 }
 
-                delay(500);                  // espero meio segundo
+                delay(time_note / 2);        // espero meio segundo
                 digitalWrite(ledAmarelo, 0); // apago o led
-                delay(200);                  // espero mais meio segundo
+                ledcWrite(PWM1_Ch, 0);
+                delay(200); // espero mais meio segundo
             }
             if (rbaz) // se o botao do amarelo foi apertado
             {
-                digitalWrite(ledAzul, 1); // acendo o led amarelo
-                // ledcWriteTone(PWM1_Ch, 349); // toco o tom da cor amarela
-                if (luzes[aux] == 2) // verifico se o jogador acertou a cor
+                digitalWrite(ledAzul, 1);    // acendo o led amarelo
+                ledcWriteTone(PWM1_Ch, 349); // toco o tom da cor amarela
+                if (luzes[aux] == 2)         // verifico se o jogador acertou a cor
                 {
                     aux++; // acrescento mais um no indice de acerto
                 }
@@ -193,15 +194,16 @@ void loop()
                     rbaz = digitalRead(btnAzul);
                 }
 
-                delay(500);               // espero meio segundo
+                delay(time_note / 2);     // espero meio segundo
                 digitalWrite(ledAzul, 0); // apago o led
-                delay(200);               // espero mais meio segundo
+                ledcWrite(PWM1_Ch, 0);
+                delay(200); // espero mais meio segundo
             }
             if (rbvd) // se o botao do amarelo foi apertado
             {
-                digitalWrite(ledVerde, 1); // acendo o led amarelo
-                // ledcWriteTone(PWM1_Ch, 262); // toco o tom da cor amarela
-                if (luzes[aux] == 3) // verifico se o jogador acertou a cor
+                digitalWrite(ledVerde, 1);   // acendo o led amarelo
+                ledcWriteTone(PWM1_Ch, 262); // toco o tom da cor amarela
+                if (luzes[aux] == 3)         // verifico se o jogador acertou a cor
                 {
                     aux++; // acrescento mais um no indice de acerto
                 }
@@ -215,15 +217,16 @@ void loop()
                     rbvd = digitalRead(btnVerde);
                 }
 
-                delay(500);                // espero meio segundo
+                delay(time_note / 2);      // espero meio segundo
                 digitalWrite(ledVerde, 0); // apago o led
-                delay(200);                // espero mais meio segundo
+                ledcWrite(PWM1_Ch, 0);
+                delay(200); // espero mais meio segundo
             }
             if (rbvm) // se o botao do amarelo foi apertado
             {
                 digitalWrite(ledVermelho, 1); // acendo o led amarelo
-                // ledcWriteTone(PWM1_Ch, 294);  // toco o tom da cor amarela
-                if (luzes[aux] == 4) // verifico se o jogador acertou a cor
+                ledcWriteTone(PWM1_Ch, 294);  // toco o tom da cor amarela
+                if (luzes[aux] == 4)          // verifico se o jogador acertou a cor
                 {
                     aux++; // acrescento mais um no indice de acerto
                 }
@@ -237,12 +240,11 @@ void loop()
                     rbvm = digitalRead(btnVermelho);
                 }
 
-                delay(500);                   // espero meio segundo
+                delay(time_note / 2);         // espero meio segundo
                 digitalWrite(ledVermelho, 0); // apago o led
-                delay(200);                   // espero mais meio segundo
+                ledcWrite(PWM1_Ch, 0);
+                delay(200); // espero mais meio segundo
             }
-
-            // Fazer para os outros leds
 
             if (aux >= index) // se ele acertou toda sequencia o while não tera parado e o aux sera igual ao index que o tamanho da sequencia atual
             {
@@ -257,8 +259,9 @@ void loop()
         }
     }
 
-    // ledcWriteTone(PWM1_Ch, 415); // O buzzer toca numa frequência diferente das luzes, ajustar essa função para 3000 ms depois
-    // ledcWriteNote(PWM1_Ch, NOTE_D, 500);
+    ledcWriteTone(PWM1_Ch, 415); // O buzzer toca numa frequência diferente das luzes, ajustar essa função para 3000 ms depois
+    delay(2000);
+    ledcWrite(PWM1_Ch, 0);
     alter_all_leds(0); // apago todos os leds
 
     if (acertou) // verifica se ele zerou ou errou
