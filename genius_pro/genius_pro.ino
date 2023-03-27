@@ -22,15 +22,14 @@ const int ledAzul = 16;     // gpio do led azul
 const int ledVerde = 17;    // gpio do led verde
 const int ledVermelho = 18; // gpio do led vermelho
 
-const int sda = 33;
-const int scl = 34;
-
 #ifdef CONFIG_IDF_TARGET_ESP32S2
 
 const int btnAmarelo = 1;  // gpio do botão do led amarelo
 const int btnAzul = 2;     // gpio do botão do led azul
 const int btnVerde = 3;    // gpio do botão do led verde; esp32: 22 eps32s2: 26
 const int btnVermelho = 4; // gpio do botão do led vermelho; esp32: 23 esp32s2: 33
+const int sda = 33;
+const int scl = 34;
 
 #elif CONFIG_IDF_TARGET_ESP32
 
@@ -38,6 +37,8 @@ const int btnAmarelo = 19;  // gpio do botão do led amarelo
 const int btnAzul = 21;     // gpio do botão do led azul
 const int btnVerde = 22;    // gpio do botão do led verde; esp32: 22 eps32s2: 26
 const int btnVermelho = 23; // gpio do botão do led vermelho; esp32: 23 esp32s2: 33
+const int sda = 25;
+const int scl = 26;
 
 #endif
 
